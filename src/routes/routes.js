@@ -1,6 +1,6 @@
 import userRoutes from "./users-routes.js";
 import authRoutes from "./auth-routes.js";
-
+import postRoutes from "./post-routes.js";
 export const renderRoutes = [
   {
     method: "GET",
@@ -11,6 +11,7 @@ export const renderRoutes = [
   },
   ...Object.values(userRoutes),
   ...Object.values(authRoutes),
+  ...Object.values(postRoutes),
 ];
 
 export default (fastify, opts, next) => {
