@@ -24,7 +24,7 @@ export const create = async (req, res) => {
   }
 };
 
-export const getallPosts = async (req, res) => {
+export const getAllPosts = async (req, res) => {
   try {
     let getPosts = await prisma.post.findMany();
     return res.send(getPosts);

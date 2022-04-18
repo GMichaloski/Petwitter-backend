@@ -18,6 +18,6 @@ export default {
     method: "GET",
     url: "/petweet",
     preHandler: [validateRequest],
-    handler: postscontroller.getallPosts,
+    handler: postscontroller.getAllPosts,
   },
 };
