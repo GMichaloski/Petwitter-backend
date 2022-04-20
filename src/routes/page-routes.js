@@ -6,12 +6,12 @@ export default {
     method: "GET",
     url: "/page",
     preHandler: [validateRequest],
-    handler: pagecontroller.index,
+    handler: pagecontroller.getAllPetweets,
   },
-  Userposts: {
+  GetPetweets: {
     method: "GET",
     url: "/pages",
     preHandler: [validateRequest],
-    handler: pagecontroller.userPosts,
+    handler: pagecontroller.getPetweets,
   },
 };

@@ -1,15 +1,16 @@
 import { prisma } from "../helpers/utils.js";
 
-export const userPosts = async (req, res) => {
-  const { id } = req.query;
+export const getPetweets = async (req, res) => {
+  const { id } = req.user;
   try {
     const postsId = await prisma.post.findMany({
-      take: 10,
+      skip: 0,
+      take: 2,
       where: {
-        authorId: Number(id),
+        user_id: Number(id),
       },
       include: {
-        author: {
+        user: {
           select: {
             id: true,
             email: true,
@@ -17,9 +18,6 @@ export const userPosts = async (req, res) => {
             username: true,
           },
         },
-      },
-      orderBy: {
-        created_at: "desc",
       },
     });
     return res.send(postsId);
@@ -28,14 +26,13 @@ export const userPosts = async (req, res) => {
   }
 };
 
-export const index = async (req, res) => {
-  const page = req.page - 1;
+export const getAllPetweets = async (req, res) => {
   try {
-    const results = await prisma.post.findMany({
-      skip: page * 10,
+    const postsId = await prisma.post.findMany({
+      skip: 0,
       take: 10,
       include: {
-        author: {
+        user: {
           select: {
             id: true,
             email: true,
@@ -44,11 +41,8 @@ export const index = async (req, res) => {
           },
         },
       },
-      orderBy: {
-        created_at: "desc",
-      },
     });
-    return res.send(results);
+    return res.send(postsId);
   } catch (error) {
     res.status(500);
   }
