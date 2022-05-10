@@ -25,7 +25,9 @@ export const create = async (req, res) => {
 };
 
 export const getPosts = async (req, res) => {
-  const { id } = req.query;
+  const { id, page } = req.query;
+  let skip;
+  page ? (skip = page) : (skip = 0);
   let where = {};
   if (id) {
     where = {
@@ -34,7 +36,7 @@ export const getPosts = async (req, res) => {
   }
   try {
     const postsId = await prisma.post.findMany({
-      skip: 0,
+      skip: (skip - 1) * 10,
       take: 10,
       ...{ where },
       include: {
