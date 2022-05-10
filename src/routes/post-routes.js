@@ -14,10 +14,10 @@ export default {
     preHandler: [validateRequest],
     handler: postscontroller.removePost,
   },
-  getallPosts: {
+  getPosts: {
     method: "GET",
     url: "/petweet",
     preHandler: [validateRequest],
-    handler: postscontroller.getAllPosts,
+    handler: postscontroller.getPosts,
   },
 };

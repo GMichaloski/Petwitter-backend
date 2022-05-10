@@ -24,10 +24,34 @@ export const create = async (req, res) => {
   }
 };
 
-export const getAllPosts = async (req, res) => {
+export const getPosts = async (req, res) => {
+  const { id } = req.query;
+  let where = {};
+  if (id) {
+    where = {
+      user_id: Number(id),
+    };
+  }
   try {
-    let getPosts = await prisma.post.findMany();
-    return res.send(getPosts);
+    const postsId = await prisma.post.findMany({
+      skip: 0,
+      take: 10,
+      ...{ where },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+            username: true,
+          },
+        },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return res.send(postsId);
   } catch (error) {
     res.status(500);
   }
