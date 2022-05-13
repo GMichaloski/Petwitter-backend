@@ -37,7 +37,7 @@ export const getPosts = async (req, res) => {
   try {
     const postsId = await prisma.post.findMany({
       skip: (skip - 1) * 10,
-      take: 10,
+      take: 13,
       ...{ where },
       include: {
         user: {
